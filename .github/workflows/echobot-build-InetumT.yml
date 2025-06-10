@@ -17,6 +17,10 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   # /home/runner/work/publish
   Base:        publish
@@ -28,6 +32,7 @@ env:
 
 jobs:
   build:
+    environment: Test
 
     runs-on: windows-latest
 
@@ -63,11 +68,9 @@ jobs:
     - name: Login via Az module
       uses: azure/login@v2
       with:
-        auth-type: IDENTITY
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        enable-AzPSSession: true
 
     - name: G1_RG_UploadArtifacts_to_Blob
       uses: Azure/powershell@v2
