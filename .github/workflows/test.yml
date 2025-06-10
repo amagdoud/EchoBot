@@ -1,0 +1,38 @@
+name: Testing WF
+
+on:
+  workflow_dispatch:
+
+permissions: 
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    environment: Test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login via Az module
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: G1_RG_UploadArtifacts_to_Blob
+        uses: Azure/powershell@v2
+        with:
+          inlineScript: |
+            $SAName = 'acu1inetumtbotd1saglobal'
+            $ContainerName = 'builds'
+            $Context = New-AzStorageContext -StorageAccountName $SAName -UseConnectedAccount
+            $StorageContainerParams = @{
+                Container = $ContainerName
+                Context   = $Context
+            }
+            $b = Set-AzStorageBlobContent @StorageContainerParams -File ./README.md -Blob README.md
+            Write-Host $b
+          azPSVersion: latest
