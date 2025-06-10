@@ -29,6 +29,7 @@ jobs:
             $SAName = 'acu1inetumtbotd1saglobal'
             $ContainerName = 'builds'
             $Context = New-AzStorageContext -StorageAccountName $SAName -UseConnectedAccount
+            Write-Host $Context
             $StorageContainerParams = @{
                 Container = $ContainerName
                 Context   = $Context
