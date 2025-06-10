@@ -48,6 +48,11 @@ $Prefix = $LocationLookup.$Location.Prefix
 [String]$SAName = "${Prefix}${OrgName}${App}${Environment}saglobal".tolower()
 [String]$ContainerName = 'builds'
 
+# Write The Azure Context to the console
+$testContext = Get-AzContext
+Write-Host $testContext
+
+
 # Get context using Oauth
 $Context = New-AzStorageContext -StorageAccountName $SAName -UseConnectedAccount
 
