@@ -1,19 +1,19 @@
-name: .NET BOT D1 BUILD {OrgName}
+name: .NET BOT D1 BUILD InetumT
 
 on:
   push:
     branches:
-      - '{BranchName}'
+      - 'master'
     paths:
-      - './Samples/PublicSamples/EchoBot/src/**'
-      - .github/workflows/echobot-build-{OrgName}.yml
+      - './src/**'
+      - .github/workflows/echobot-build-InetumT.yml
 
   pull_request:
     branches:
-      - '{BranchName}'
+      - 'master'
     paths:
-      - './Samples/PublicSamples/EchoBot/src/**'
-      - .github/workflows/echobot-build-{OrgName}.yml
+      - './src/**'
+      - .github/workflows/echobot-build-InetumT.yml
 
   workflow_dispatch:
 
@@ -23,8 +23,8 @@ env:
   Component:   EchoBot
   BuildName:   0.1.${{ github.run_number }}
   Environment: D1
-  OrgName:     {OrgName}
-  Location:    {Location}
+  OrgName:     InetumT
+  Location:    centralus
 
 jobs:
   build:
@@ -104,3 +104,6 @@ jobs:
           }
           & ./ADF/release-az/Update-AzBuildMetaData.ps1 @Params
         azPSVersion: latest
+
+
+

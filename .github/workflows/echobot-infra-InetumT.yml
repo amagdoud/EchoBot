@@ -1,4 +1,4 @@
-name: .NET BOT D1 INFRA {OrgName}
+name: .NET BOT D1 INFRA InetumT
 
 # Controls when the action will run.
 on:
@@ -6,24 +6,24 @@ on:
   # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows
   push:
     branches:
-      - '{BranchName}'
+      - 'master'
     paths:
       - './ADF/**'
-      - .github/workflows/echobot-infra-{OrgName}.yml
+      - .github/workflows/echobot-infra-InetumT.yml
 
   pull_request:
     branches:
-      - '{BranchName}'
+      - 'master'
     paths:
       - './ADF/**'
-      - .github/workflows/echobot-infra-{OrgName}.yml
+      - .github/workflows/echobot-infra-InetumT.yml
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
-  OrgName: {OrgName}
-  Location: {Location}
+  OrgName: InetumT
+  Location: centralus
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,10 +37,7 @@ jobs:
       - name: Login via Az module
         uses: azure/login@v2
         with:
-          auth-type: IDENTITY
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{secrets.AZURE_CREDENTIALS_InetumT_BOT}}
           enable-AzPSSession: true
 
       - name: Deploy_All_Subscription
@@ -55,3 +52,6 @@ jobs:
             }
             ./ADF/main.ps1 @Params
             if ($e){throw $e}
+
+
+
