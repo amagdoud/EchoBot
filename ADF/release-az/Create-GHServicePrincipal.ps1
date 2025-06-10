@@ -113,6 +113,9 @@ if ($CurrentUserStorageAccess)
         Write-Warning -Message "Current User `t`t : [$CurrentUserId] already has role [$StorageRole] on Storage Account [$SAName]"
     }
 }
+# Skipping Service principale creation
+Write-Warning "Skipping service principal creation"
+return
 
 #region Create the Service Principal in Azure AD
 $appID = Get-AzADApplication -DisplayName $ServicePrincipalName
